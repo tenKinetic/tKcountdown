@@ -1,10 +1,8 @@
 {
-  "name": "SamsungAEM",
+  "name": "tKcountdown",
   "version": "0.1.0",
   "scripts": {
-    "build": "grunt build",
-    "start": "serve ./build/ --port 80",
-    "testme": "webpack --version"
+    "build": "grunt build"
   },
   "dependencies": {},
   "devDependencies": {
