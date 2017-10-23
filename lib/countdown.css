@@ -1,0 +1,33 @@
+#tk-countdown {
+  width: 100%;
+  height: 100%;
+  border: solid 1px black;
+  font-family: Arial;
+  font-weight: bold; }
+  #tk-countdown .remainder {
+    float: left;
+    width: 75%;
+    background-color: white;
+    color: black; }
+  #tk-countdown .elapsed {
+    position: relative;
+    float: right;
+    width: 25%;
+    height: 100%;
+    background-color: black;
+    color: white; }
+    #tk-countdown .elapsed .label {
+      position: absolute;
+      right: 0; }
+  #tk-countdown .remainder, #tk-countdown .elapsed {
+    overflow: hidden;
+    transition: width 125ms linear;
+    -webkit-transition: width 125ms linear; }
+    #tk-countdown .remainder .label, #tk-countdown .elapsed .label {
+      width: 320px;
+      height: 100%;
+      text-align: center;
+      font-size: 30px;
+      line-height: 50px; }
+
+/*# sourceMappingURL=countdown.css.map */
