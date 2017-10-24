@@ -4,57 +4,228 @@
   <title>Tk Countdown</title>
 </head>
 <body>
-  <div style="width:260px;height:40px;margin:50px auto;">
-    <style>#tk-countdown {
+  <div style="width:640px;height:100px;margin:50px auto;">
+    <style>/* MIXINS */
+/* FLIP DIGIT SETTINGS */
+.tk-countdown {
   width: 100%;
-  height: 100%;
-  border: solid 1px black;
-  font-family: Arial;
-  font-weight: bold;
-}
+  height: 100%; }
+  .tk-countdown.airport {
+    display: none; }
+    .tk-countdown.airport .item {
+      width: 20%;
+      height: 100%;
+      text-align: center;
+      display: inline-block;
+      /* FLIP */ }
+      .tk-countdown.airport .item .label {
+        width: 100%;
+        height: 30%; }
+      .tk-countdown.airport .item .value {
+        width: 100%;
+        height: 70%; }
+      .tk-countdown.airport .item .digit {
+        position: relative;
+        z-index: 0;
+        width: 120px;
+        height: 90px;
+        margin-left: 10px;
+        background-color: black;
+        text-align: center;
+        line-height: 0;
+        -webkit-text-stroke: 2px;
+        -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+        -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px; }
+        .tk-countdown.airport .item .digit:last-child {
+          margin-left: 0; }
+        .tk-countdown.airport .item .digit span {
+          position: absolute;
+          left: 0;
+          height: 45px;
+          width: 120px;
+          overflow: hidden;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          font-size: 90px;
+          font-family: "Ubuntu", sans-serif;
+          font-weight: 700;
+          text-indent: 2px;
+          background-color: black;
+          color: white;
+          -webkit-transform: translate3d(0, 0, 0);
+          -moz-transform: translate3d(0, 0, 0);
+          -o-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0); }
+          .tk-countdown.airport .item .digit span.front {
+            top: 0;
+            padding-top: 45px; }
+          .tk-countdown.airport .item .digit span.back {
+            bottom: 0; }
+        .tk-countdown.airport .item .digit .line {
+          position: absolute;
+          z-index: 10;
+          height: 45px;
+          width: 120px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+          -webkit-box-shadow: 0px 5px 7px -4px rgba(0, 0, 0, 0.7);
+          -moz-box-shadow: 0px 5px 7px -4px rgba(0, 0, 0, 0.7);
+          box-shadow: 0px 5px 7px -4px rgba(0, 0, 0, 0.7); }
+        .tk-countdown.airport .item .digit .hinge-wrap {
+          z-index: 5;
+          position: relative;
+          overflow: visible;
+          -webkit-perspective: 300px;
+          -moz-perspective: 300px;
+          -ms-perspective: 300px;
+          perspective: 300px; }
+        .tk-countdown.airport .item .digit .hinge {
+          position: absolute;
+          height: 45px;
+          width: 120px;
+          -webkit-transform-style: preserve-3d;
+          -moz-transform-style: preserve-3d;
+          -ms-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+          -webkit-transition: -webkit-transform $digitFlipDuration;
+          -moz-transition: -moz-transform $digitFlipDuration;
+          transition: transform $digitFlipDuration;
+          -webkit-transform-origin: 50% 100%;
+          -moz-transform-origin: 50% 100%;
+          -ms-transform-origin: 50% 100%;
+          -o-transform-origin: 50% 100%;
+          transform-origin: 50% 100%; }
+          .tk-countdown.airport .item .digit .hinge span {
+            height: 0;
+            z-index: 5;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden; }
+            .tk-countdown.airport .item .digit .hinge span.front {
+              padding-top: 45px; }
+            .tk-countdown.airport .item .digit .hinge span.back {
+              height: 45px;
+              -webkit-transform: rotateX(180deg);
+              -moz-transform: rotateX(180deg);
+              -ms-transform: rotateX(180deg);
+              -o-transform: rotateX(180deg);
+              transform: rotateX(180deg); }
+        .tk-countdown.airport .item .digit.animate .hinge {
+          -webkit-transform: rotateX(-180deg);
+          -moz-transform: rotateX(-180deg);
+          -ms-transform: rotateX(-180deg);
+          -o-transform: rotateX(-180deg);
+          transform: rotateX(-180deg); }
+  .tk-countdown.progress {
+    border: solid 1px black;
+    font-family: Arial;
+    font-weight: bold; }
+    .tk-countdown.progress .remainder {
+      float: left;
+      width: 75%;
+      background-color: white;
+      color: black; }
+    .tk-countdown.progress .elapsed {
+      position: relative;
+      float: right;
+      width: 25%;
+      height: 100%;
+      background-color: black;
+      color: white; }
+      .tk-countdown.progress .elapsed .label {
+        position: absolute;
+        right: 0; }
+    .tk-countdown.progress .remainder, .tk-countdown.progress .elapsed {
+      overflow: hidden;
+      transition: width 125ms linear;
+      -webkit-transition: width 125ms linear; }
+      .tk-countdown.progress .remainder .label, .tk-countdown.progress .elapsed .label {
+        width: 320px;
+        height: 100%;
+        text-align: center;
+        font-size: 30px;
+        line-height: 50px; }
 
-#tk-countdown .remainder {
-  float: left;
-  width: 75%;
-  background-color: white;
-  color: black;
-}
-
-#tk-countdown .elapsed {
-  position: relative;
-  float: right;
-  width: 25%;
-  height: 100%;
-  background-color: black;
-  color: white;
-}
-
-#tk-countdown .elapsed .label {
-  position: absolute;
-  right: 0;
-}
-
-#tk-countdown .remainder, #tk-countdown .elapsed {
-  overflow: hidden;
-  transition: width 125ms linear;
-  -webkit-transition: width 125ms linear;
-}
-
-#tk-countdown .remainder .label, #tk-countdown .elapsed .label {
-  width: 320px;
-  height: 100%;
-  text-align: center;
-  font-size: 30px;
-  line-height: 50px;
-}
-
-/*# sourceMappingURL=data:application/json;base64,ewoJInZlcnNpb24iOiAzLAoJImZpbGUiOiAiY291bnRkb3duLmNzcyIsCgkic291cmNlcyI6IFsKCQkiY291bnRkb3duLnNjc3MiCgldLAoJIm5hbWVzIjogW10sCgkibWFwcGluZ3MiOiAiQUFBQSxBQUFBLGFBQWEsQ0FBQztFQUNaLEtBQUssRUFBRSxJQUFJO0VBQ1gsTUFBTSxFQUFFLElBQUk7RUFDWixNQUFNLEVBQUUsZUFBZTtFQUN2QixXQUFXLEVBQUUsS0FBSztFQUNsQixXQUFXLEVBQUUsSUFBSTtDQStCbEI7O0FBcENELEFBTUUsYUFOVyxDQU1YLFVBQVUsQ0FBQztFQUNULEtBQUssRUFBQyxJQUFJO0VBQ1YsS0FBSyxFQUFFLEdBQUc7RUFDVixnQkFBZ0IsRUFBRSxLQUFLO0VBQ3ZCLEtBQUssRUFBRSxLQUFLO0NBQ2I7O0FBWEgsQUFZRSxhQVpXLENBWVgsUUFBUSxDQUFDO0VBQ1AsUUFBUSxFQUFFLFFBQVE7RUFDbEIsS0FBSyxFQUFFLEtBQUs7RUFDWixLQUFLLEVBQUUsR0FBRztFQUNWLE1BQU0sRUFBRSxJQUFJO0VBQ1osZ0JBQWdCLEVBQUUsS0FBSztFQUN2QixLQUFLLEVBQUUsS0FBSztDQUtiOztBQXZCSCxBQW1CSSxhQW5CUyxDQVlYLFFBQVEsQ0FPTixNQUFNLENBQUM7RUFDTCxRQUFRLEVBQUUsUUFBUTtFQUNsQixLQUFLLEVBQUUsQ0FBQztDQUNUOztBQXRCTCxBQXdCRSxhQXhCVyxDQXdCWCxVQUFVLEVBeEJaLEFBd0JjLGFBeEJELENBd0JDLFFBQVEsQ0FBQztFQUNuQixRQUFRLEVBQUUsTUFBTTtFQUNoQixVQUFVLEVBQUUsa0JBQWtCO0VBQzlCLGtCQUFrQixFQUFFLGtCQUFrQjtDQVF2Qzs7QUFuQ0gsQUE0QkksYUE1QlMsQ0F3QlgsVUFBVSxDQUlSLE1BQU0sRUE1QlYsQUE0QkksYUE1QlMsQ0F3QkMsUUFBUSxDQUlsQixNQUFNLENBQUM7RUFDTCxLQUFLLEVBQUUsS0FBSztFQUNaLE1BQU0sRUFBRSxJQUFJO0VBQ1osVUFBVSxFQUFFLE1BQU07RUFDbEIsU0FBUyxFQUFFLElBQUk7RUFDZixXQUFXLEVBQUUsSUFBSTtDQUNsQiIKfQ== */</style>
-    <div id="tk-countdown">
+/*# sourceMappingURL=countdown.css.map */</style>
+    <div class="tk-countdown progress">
       <div class="remainder">
-        <div class="label"><!--1w 2d 3h 34m 5s--></div>
+        <div class="label"></div>
       </div>
       <div class="elapsed">
-        <div class="label"><!--1w 2d 3h 34m 5s--></div>
+        <div class="label"></div>
+      </div>
+    </div>
+    <div class="tk-countdown airport">
+      <div class="item weeks">
+        <div class="label">weeks</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
+      </div><div class="item days">
+        <div class="label">days</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
+      </div><div class="item hours">
+        <div class="label">hours</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
+      </div><div class="item minutes">
+        <div class="label">minutes</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
+      </div><div class="item seconds">
+        <div class="label">seconds</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script>'use strict';
@@ -63,22 +234,44 @@ var tkCountdown = new Object()
 
 tkCountdown.begin = function(opts) {
 
-  tkCountdown.element = document.querySelector('#tk-countdown')
-  tkCountdown.remainder = tkCountdown.element.querySelector('.remainder')
-  tkCountdown.elapsed = tkCountdown.element.querySelector('.elapsed')
-  tkCountdown.remainderLabel = tkCountdown.remainder.querySelector('.label')
-  tkCountdown.elapsedLabel = tkCountdown.elapsed.querySelector('.label')
+  // if the mode is defined make sure it's visible
+  if (typeof opts.mode !== 'undefined') {
+    if (opts.mode == 'progress') {
 
-  // % remaining to initialise display (/1)
-  if (typeof opts.startRatio === 'undefined') {
-    opts.startRatio = 0.75
+      tkCountdown.element = document.querySelector('.tk-countdown.progress')
+      tkCountdown.remainder = tkCountdown.element.querySelector('.remainder')
+      tkCountdown.elapsed = tkCountdown.element.querySelector('.elapsed')
+      tkCountdown.remainderLabel = tkCountdown.remainder.querySelector('.label')
+      tkCountdown.elapsedLabel = tkCountdown.elapsed.querySelector('.label')
+
+      // % remaining to initialise display (/1)
+      if (typeof opts.startRatio === 'undefined') {
+        opts.startRatio = 0.75
+      } else {
+        // set the initial state based on the requested ratio
+        tkCountdown.remainder.style.width = `${opts.startRatio * 100}%`
+        tkCountdown.elapsed.style.width = `${100-(opts.startRatio * 100)}%`
+      }
+      opts.startRatio = opts.startRatio * 100
+      tkCountdown.startRatio = opts.startRatio
+
+    }
+    else if (opts.mode == 'airport') {
+
+      tkCountdown.element = document.querySelector('.tk-countdown.airport')
+      tkCountdown.weeksDigit = document.querySelector('.tk-countdown .item.weeks .digit')
+      tkCountdown.daysDigit = document.querySelector('.tk-countdown .item.days .digit')
+      tkCountdown.hoursDigit = document.querySelector('.tk-countdown .item.hours .digit')
+      tkCountdown.minutesDigit = document.querySelector('.tk-countdown .item.minutes .digit')
+      tkCountdown.secondsDigit = document.querySelector('.tk-countdown .item.seconds .digit')
+      tkCountdown.element.style.display = 'block'
+      document.querySelector('.tk-countdown.progress').style.display = 'none'
+
+    }
   } else {
-    // set the initial state based on the requested ratio
-    tkCountdown.remainder.style.width = `${opts.startRatio * 100}%`
-    tkCountdown.elapsed.style.width = `${100-(opts.startRatio * 100)}%`
+    opts.mode = 'progress'
   }
-  opts.startRatio = opts.startRatio * 100
-  tkCountdown.startRatio = opts.startRatio
+  tkCountdown.mode = opts.mode
 
   if (typeof opts.demo != 'undefined') {
     tkCountdown.eventTime = new Date().getTime() + opts.demo
@@ -93,23 +286,33 @@ tkCountdown.begin = function(opts) {
     if (1000 % opts.frequency != 0) {
       console.warn(`A frequency that is not a factor of 1000 milliseconds has been supplied (${opts.frequency}). This will result in irregular display updates.`)
     }
-    // set the transition time to match the update frequency
-    tkCountdown.remainder.style.transitionDuration = `${opts.frequency}ms`
-    tkCountdown.elapsed.style.transitionDuration = `${opts.frequency}ms`
+    if (tkCountdown.mode == 'progress') {
+      // set the transition time to match the update frequency
+      tkCountdown.remainder.style.transitionDuration = `${opts.frequency}ms`
+      tkCountdown.elapsed.style.transitionDuration = `${opts.frequency}ms`
+    }
   }
 
   tkCountdown.startTime = new Date().getTime()
   // take the frequency off the start time because the first interval will run after that period
   tkCountdown.startTime -= opts.frequency
 
-  // get the element that the countdown is contained in and use it for dimensions
+  // styles based on the containing element
   var container = tkCountdown.element.parentElement
-  tkCountdown.elapsedLabel.style.width = container.style.width
-  tkCountdown.elapsedLabel.style.lineHeight = container.style.height
-  tkCountdown.elapsedLabel.style.fontSize = `${parseInt(container.style.height) * 0.6}px`
-  tkCountdown.remainderLabel.style.width = container.style.width
-  tkCountdown.remainderLabel.style.lineHeight = container.style.height
-  tkCountdown.remainderLabel.style.fontSize = `${parseInt(container.style.height) * 0.6}px`
+  if (tkCountdown.mode == 'progress') {
+    // get the element that the countdown is contained in and use it for dimensions
+    tkCountdown.elapsedLabel.style.width = container.style.width
+    tkCountdown.elapsedLabel.style.lineHeight = container.style.height
+    tkCountdown.elapsedLabel.style.fontSize = `${parseInt(container.style.height) * 0.6}px`
+    tkCountdown.remainderLabel.style.width = container.style.width
+    tkCountdown.remainderLabel.style.lineHeight = container.style.height
+    tkCountdown.remainderLabel.style.fontSize = `${parseInt(container.style.height) * 0.6}px`
+  } else if (tkCountdown.mode == 'airport') {
+    var labels = tkCountdown.element.querySelectorAll('.item .label')
+    var values = tkCountdown.element.querySelectorAll('.item .value')
+    for (var l = 0; l < labels.length; l++) labels[l].style.lineHeight = `${container.getBoundingClientRect().height * 0.3}px`
+    for (var v = 0; v < values.length; v++) values[v].style.lineHeight = `${container.getBoundingClientRect().height * 0.7}px`
+  }
 
   tkCountdown.interval = setInterval(function() {
     tkCountdown.render()
@@ -118,6 +321,11 @@ tkCountdown.begin = function(opts) {
 }
 
 tkCountdown.render = function() {
+  if (tkCountdown.mode == 'progress') tkCountdown.renderProgress()
+  else if (tkCountdown.mode == 'airport') tkCountdown.renderAirport()
+}
+
+tkCountdown.renderProgress = function() {
 
   // display began at startRatio / startTime so:
   //      eventTime - startTime = startRatio
@@ -136,12 +344,73 @@ tkCountdown.render = function() {
   // if the time span in seconds hasn't changed, don't run this expensive calculation
   if (parseInt(remainingTimeSpan / 1000) !== tkCountdown.currentSecondsTimeSpan) {
     var display = tkCountdown.display(remainingTimeSpan)
-    tkCountdown.elapsedLabel.innerText = display
-    tkCountdown.remainderLabel.innerText = display
+    tkCountdown.elapsedLabel.innerText = display.label
+    tkCountdown.remainderLabel.innerText = display.label
   }
 
   tkCountdown.remainder.style.width = `${newRatio}%`
   tkCountdown.elapsed.style.width = `${100-newRatio}%`
+
+}
+
+tkCountdown.renderAirport = function() {
+
+  var remainingTimeSpan = tkCountdown.eventTime - new Date().getTime()
+  // we need to add a second so the final animation doesn't display 0s
+  remainingTimeSpan += 1000
+
+  if (remainingTimeSpan < 0) return clearInterval(tkCountdown.interval)
+
+  // if the time span in seconds hasn't changed, don't run this expensive calculation
+  if (parseInt(remainingTimeSpan / 1000) !== tkCountdown.currentSecondsTimeSpan) {
+    var display = tkCountdown.display(remainingTimeSpan)
+    // tkCountdown.weeksLabel.innerText = display.weeks
+    // tkCountdown.daysLabel.innerText = display.days
+    // tkCountdown.hoursLabel.innerText = display.hours
+    // tkCountdown.minutesLabel.innerText = display.minutes
+    // tkCountdown.secondsLabel.innerText = display.seconds
+
+    // TODO: run the flip
+    console.log('flip')
+
+    if (tkCountdown.currentDisplay) {
+      // flip those values that have changed
+
+    } else {
+      // this is the first run, set all values
+      tkCountdown.weeksDigit.querySelector('.front').innerText = display.weeks
+      tkCountdown.weeksDigit.querySelector('.back').innerText = display.weeks
+      tkCountdown.weeksDigit.querySelector('.hinge .front').innerText = display.weeks
+      tkCountdown.weeksDigit.querySelector('.hinge .back').innerText = display.weeks
+
+      tkCountdown.daysDigit.querySelector('.front').innerText = display.days
+      tkCountdown.daysDigit.querySelector('.back').innerText = display.days
+      tkCountdown.daysDigit.querySelector('.hinge .front').innerText = display.days
+      tkCountdown.daysDigit.querySelector('.hinge .back').innerText = display.days
+
+      tkCountdown.hoursDigit.querySelector('.front').innerText = display.hours
+      tkCountdown.hoursDigit.querySelector('.back').innerText = display.hours
+      tkCountdown.hoursDigit.querySelector('.hinge .front').innerText = display.hours
+      tkCountdown.hoursDigit.querySelector('.hinge .back').innerText = display.hours
+
+      tkCountdown.minutesDigit.querySelector('.front').innerText = display.minutes
+      tkCountdown.minutesDigit.querySelector('.back').innerText = display.minutes
+      tkCountdown.minutesDigit.querySelector('.hinge .front').innerText = display.minutes
+      tkCountdown.minutesDigit.querySelector('.hinge .back').innerText = display.minutes
+
+      tkCountdown.secondsDigit.querySelector('.front').innerText = display.seconds
+      tkCountdown.secondsDigit.querySelector('.back').innerText = display.seconds
+      tkCountdown.secondsDigit.querySelector('.hinge .front').innerText = display.seconds
+      tkCountdown.secondsDigit.querySelector('.hinge .back').innerText = display.seconds
+    }
+
+    // change front to new value
+    // change hinge.back to new value
+    // animate
+    // change back to new value
+    // change hinge.front to new value
+
+  }
 
 }
 
@@ -165,14 +434,22 @@ tkCountdown.display = function(ms) {
   var weeks = (days / 7) | 0
   days -= weeks * 7
 
-  return `${weeks}w ${days}d ${hours}h ${minutes}m ${seconds}s`
+  return {
+    weeks: weeks,
+    days: days,
+    hours: hours,
+    minutes: minutes,
+    seconds: seconds,
+    label: `${weeks}w ${days}d ${hours}h ${minutes}m ${seconds}s`
+  }
 }
 
 tkCountdown.begin({
-  demo: 10000,
-  // eventTime: new Date('2017-10-28 08:00:00').getTime(),
+  // demo: 10000,
+  eventTime: new Date('2017-10-28 08:00:00').getTime(),
   frequency: 125,
-  startRatio: 0.8
+  startRatio: 0.8,
+  mode: 'airport'
 })
 </script>
 

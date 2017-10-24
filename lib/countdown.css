@@ -1,33 +1,147 @@
-#tk-countdown {
+/* MIXINS */
+/* FLIP DIGIT SETTINGS */
+.tk-countdown {
   width: 100%;
-  height: 100%;
-  border: solid 1px black;
-  font-family: Arial;
-  font-weight: bold; }
-  #tk-countdown .remainder {
-    float: left;
-    width: 75%;
-    background-color: white;
-    color: black; }
-  #tk-countdown .elapsed {
-    position: relative;
-    float: right;
-    width: 25%;
-    height: 100%;
-    background-color: black;
-    color: white; }
-    #tk-countdown .elapsed .label {
-      position: absolute;
-      right: 0; }
-  #tk-countdown .remainder, #tk-countdown .elapsed {
-    overflow: hidden;
-    transition: width 125ms linear;
-    -webkit-transition: width 125ms linear; }
-    #tk-countdown .remainder .label, #tk-countdown .elapsed .label {
-      width: 320px;
+  height: 100%; }
+  .tk-countdown.airport {
+    display: none; }
+    .tk-countdown.airport .item {
+      width: 20%;
       height: 100%;
       text-align: center;
-      font-size: 30px;
-      line-height: 50px; }
+      display: inline-block;
+      /* FLIP */ }
+      .tk-countdown.airport .item .label {
+        width: 100%;
+        height: 30%; }
+      .tk-countdown.airport .item .value {
+        width: 100%;
+        height: 70%; }
+      .tk-countdown.airport .item .digit {
+        position: relative;
+        z-index: 0;
+        width: 120px;
+        height: 90px;
+        margin-left: 10px;
+        background-color: black;
+        text-align: center;
+        line-height: 0;
+        -webkit-text-stroke: 2px;
+        -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+        -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px; }
+        .tk-countdown.airport .item .digit:last-child {
+          margin-left: 0; }
+        .tk-countdown.airport .item .digit span {
+          position: absolute;
+          left: 0;
+          height: 45px;
+          width: 120px;
+          overflow: hidden;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          font-size: 90px;
+          font-family: "Ubuntu", sans-serif;
+          font-weight: 700;
+          text-indent: 2px;
+          background-color: black;
+          color: white;
+          -webkit-transform: translate3d(0, 0, 0);
+          -moz-transform: translate3d(0, 0, 0);
+          -o-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0); }
+          .tk-countdown.airport .item .digit span.front {
+            top: 0;
+            padding-top: 45px; }
+          .tk-countdown.airport .item .digit span.back {
+            bottom: 0; }
+        .tk-countdown.airport .item .digit .line {
+          position: absolute;
+          z-index: 10;
+          height: 45px;
+          width: 120px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+          -webkit-box-shadow: 0px 5px 7px -4px rgba(0, 0, 0, 0.7);
+          -moz-box-shadow: 0px 5px 7px -4px rgba(0, 0, 0, 0.7);
+          box-shadow: 0px 5px 7px -4px rgba(0, 0, 0, 0.7); }
+        .tk-countdown.airport .item .digit .hinge-wrap {
+          z-index: 5;
+          position: relative;
+          overflow: visible;
+          -webkit-perspective: 300px;
+          -moz-perspective: 300px;
+          -ms-perspective: 300px;
+          perspective: 300px; }
+        .tk-countdown.airport .item .digit .hinge {
+          position: absolute;
+          height: 45px;
+          width: 120px;
+          -webkit-transform-style: preserve-3d;
+          -moz-transform-style: preserve-3d;
+          -ms-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+          -webkit-transition: -webkit-transform $digitFlipDuration;
+          -moz-transition: -moz-transform $digitFlipDuration;
+          transition: transform $digitFlipDuration;
+          -webkit-transform-origin: 50% 100%;
+          -moz-transform-origin: 50% 100%;
+          -ms-transform-origin: 50% 100%;
+          -o-transform-origin: 50% 100%;
+          transform-origin: 50% 100%; }
+          .tk-countdown.airport .item .digit .hinge span {
+            height: 0;
+            z-index: 5;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden; }
+            .tk-countdown.airport .item .digit .hinge span.front {
+              padding-top: 45px; }
+            .tk-countdown.airport .item .digit .hinge span.back {
+              height: 45px;
+              -webkit-transform: rotateX(180deg);
+              -moz-transform: rotateX(180deg);
+              -ms-transform: rotateX(180deg);
+              -o-transform: rotateX(180deg);
+              transform: rotateX(180deg); }
+        .tk-countdown.airport .item .digit.animate .hinge {
+          -webkit-transform: rotateX(-180deg);
+          -moz-transform: rotateX(-180deg);
+          -ms-transform: rotateX(-180deg);
+          -o-transform: rotateX(-180deg);
+          transform: rotateX(-180deg); }
+  .tk-countdown.progress {
+    border: solid 1px black;
+    font-family: Arial;
+    font-weight: bold; }
+    .tk-countdown.progress .remainder {
+      float: left;
+      width: 75%;
+      background-color: white;
+      color: black; }
+    .tk-countdown.progress .elapsed {
+      position: relative;
+      float: right;
+      width: 25%;
+      height: 100%;
+      background-color: black;
+      color: white; }
+      .tk-countdown.progress .elapsed .label {
+        position: absolute;
+        right: 0; }
+    .tk-countdown.progress .remainder, .tk-countdown.progress .elapsed {
+      overflow: hidden;
+      transition: width 125ms linear;
+      -webkit-transition: width 125ms linear; }
+      .tk-countdown.progress .remainder .label, .tk-countdown.progress .elapsed .label {
+        width: 320px;
+        height: 100%;
+        text-align: center;
+        font-size: 30px;
+        line-height: 50px; }
 
 /*# sourceMappingURL=countdown.css.map */

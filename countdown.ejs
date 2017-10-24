@@ -1,10 +1,78 @@
-    <style><%- include('countdown.css') %></style>
-    <div id="tk-countdown">
+    <style><%- include('lib/countdown.css') %></style>
+    <div class="tk-countdown progress">
       <div class="remainder">
-        <div class="label"><!--1w 2d 3h 34m 5s--></div>
+        <div class="label"></div>
       </div>
       <div class="elapsed">
-        <div class="label"><!--1w 2d 3h 34m 5s--></div>
+        <div class="label"></div>
+      </div>
+    </div>
+    <div class="tk-countdown airport">
+      <div class="item weeks">
+        <div class="label">weeks</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
+      </div><div class="item days">
+        <div class="label">days</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
+      </div><div class="item hours">
+        <div class="label">hours</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
+      </div><div class="item minutes">
+        <div class="label">minutes</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
+      </div><div class="item seconds">
+        <div class="label">seconds</div>
+        <div class="digit animate">
+          <div class="line"></div>
+          <span class="front">1</span>
+          <span class="back">1</span>
+          <div class="hinge-wrap">
+            <div class="hinge">
+              <span class="front">1</span>
+              <span class="back">1</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script><%- include('countdown.js') %></script>
