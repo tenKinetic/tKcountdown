@@ -371,10 +371,6 @@ tkCountdown.renderAirport = function() {
   // if the time span in seconds hasn't changed, don't run this expensive calculation
   if (parseInt(remainingTimeSpan / 1000) !== tkCountdown.currentSecondsTimeSpan) {
     var display = tkCountdown.display(remainingTimeSpan)
-    console.log(display);
-
-    // TODO: run the flip
-    console.log('flip')
 
     if (tkCountdown.currentDisplay) {
 
