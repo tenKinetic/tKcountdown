@@ -1,3 +1,23 @@
+/* FLIP DIGIT SETTINGS */
+
+$digitWidth: 40px;
+$digitHeight: 50px;
+$digitFontSize: 20px;
+
+$digitMargin: 10px;
+$digitBackground: black;
+$digitColor: white;
+
+$digitFontFamily: 'Ubuntu', sans-serif;
+$digitFontWeight: 400;
+
+$digitFlipDuration: '0.3s ease-in';
+$digitFlipPerspective: 300px;
+
+$delimiterFontSize: 52px;
+
+$shadowColor: fade-out($digitBackground, 0.5);
+
 /* MIXINS */
 @mixin box-shadow($shadow) {
   -webkit-box-shadow: $shadow;
@@ -25,10 +45,10 @@
   perspective: $perspective;
 }
 
-@mixin transition($transition) {
-  -webkit-transition: -webkit-#{$transition};
-  -moz-transition: -moz-#{$transition};
-  transition: #{$transition};
+@mixin transition($duration) {
+  -webkit-transition: -webkit-transform #{$duration};
+  -moz-transition: -moz-transform #{$duration};
+  transition: transform #{$duration};
 }
 
 @mixin transform-style($style) {
@@ -61,26 +81,6 @@
   backface-visibility: $visibility;
 }
 
-/* FLIP DIGIT SETTINGS */
-
-$digitWidth: 120px;
-$digitHeight: 90px;
-$digitFontSize: 90px;
-
-$digitMargin: 10px;
-$digitBackground: black;
-$digitColor: white;
-
-$digitFontFamily: 'Ubuntu', sans-serif;
-$digitFontWeight: 700;
-
-$digitFlipDuration: '0.3s ease-in';
-$digitFlipPerspective: 300px;
-
-$delimiterFontSize: 52px;
-
-$shadowColor: fade-out($digitBackground, 0.5);
-
 .tk-countdown {
   width: 100%;
   height: 100%;
@@ -94,6 +94,8 @@ $shadowColor: fade-out($digitBackground, 0.5);
       .label {
         width: 100%;
         height: 30%;
+        font-family: Ubuntu;
+        font-size: 12px;
       }
       .value {
         width: 100%;
@@ -105,10 +107,11 @@ $shadowColor: fade-out($digitBackground, 0.5);
         z-index             : 0;
         width               : $digitWidth;
         height              : $digitHeight;
-        margin-left         : $digitMargin;
+        // margin-left         : $digitMargin;
         background-color    : $digitBackground;
         text-align          : center;
         line-height         : 0;
+        margin              : auto;
         // Fix for slight Chrome-Win font jumping
         // https://code.google.com/p/chromium/issues/detail?id=137692
         // 1px not enough, unfortunately
@@ -116,9 +119,9 @@ $shadowColor: fade-out($digitBackground, 0.5);
         @include box-shadow(1px 1px 5px 0px $shadowColor);
         @include border-radius(5px);
 
-        &:last-child {
-          margin-left : 0;
-        }
+        // &:last-child {
+        //   margin-left : 0;
+        // }
 
         span {
           position         : absolute;
@@ -178,7 +181,7 @@ $shadowColor: fade-out($digitBackground, 0.5);
           height   : $digitHeight / 2;
           width    : $digitWidth;
           @include transform-style(preserve-3d);
-          @include transition("transform $digitFlipDuration");
+          @include transition($digitFlipDuration);
           @include transform-origin(50% 100%);
 
           span {
@@ -200,6 +203,10 @@ $shadowColor: fade-out($digitBackground, 0.5);
 
         &.animate .hinge {
           @include rotateX(-180deg);
+        }
+        &.reverse-animate .hinge {
+          transition-duration: 0s;
+          @include rotateX(0deg);
         }
       }
     }
