@@ -256,8 +256,8 @@ tkCountdown.begin = function(opts) {
         opts.startRatio = 0.75
       } else {
         // set the initial state based on the requested ratio
-        tkCountdown.remainder.style.width = `${opts.startRatio * 100}%`
-        tkCountdown.elapsed.style.width = `${100-(opts.startRatio * 100)}%`
+        tkCountdown.remainder.style.width = (opts.startRatio * 100)+'%'
+        tkCountdown.elapsed.style.width = (100-(opts.startRatio * 100))+'%'
       }
       opts.startRatio = opts.startRatio * 100
       tkCountdown.startRatio = opts.startRatio
@@ -291,12 +291,12 @@ tkCountdown.begin = function(opts) {
     opts.frequency = 125
   } else {
     if (1000 % opts.frequency != 0) {
-      console.warn(`A frequency that is not a factor of 1000 milliseconds has been supplied (${opts.frequency}). This will result in irregular display updates.`)
+      console.warn('A frequency that is not a factor of 1000 milliseconds has been supplied ('+opts.frequency+'). This will result in irregular display updates.')
     }
     if (tkCountdown.mode == 'progress') {
       // set the transition time to match the update frequency
-      tkCountdown.remainder.style.transitionDuration = `${opts.frequency}ms`
-      tkCountdown.elapsed.style.transitionDuration = `${opts.frequency}ms`
+      tkCountdown.remainder.style.transitionDuration = opts.frequency+'ms'
+      tkCountdown.elapsed.style.transitionDuration = opts.frequency+'ms'
     }
   }
 
@@ -310,15 +310,15 @@ tkCountdown.begin = function(opts) {
     // get the element that the countdown is contained in and use it for dimensions
     tkCountdown.elapsedLabel.style.width = container.style.width
     tkCountdown.elapsedLabel.style.lineHeight = container.style.height
-    tkCountdown.elapsedLabel.style.fontSize = `${parseInt(container.style.height) * 0.6}px`
+    tkCountdown.elapsedLabel.style.fontSize = (parseInt(container.style.height) * 0.6)+'px'
     tkCountdown.remainderLabel.style.width = container.style.width
     tkCountdown.remainderLabel.style.lineHeight = container.style.height
-    tkCountdown.remainderLabel.style.fontSize = `${parseInt(container.style.height) * 0.6}px`
+    tkCountdown.remainderLabel.style.fontSize = (parseInt(container.style.height) * 0.6)+'px'
   } else if (tkCountdown.mode == 'airport') {
     var labels = tkCountdown.element.querySelectorAll('.item .label')
     var values = tkCountdown.element.querySelectorAll('.item .value')
-    for (var l = 0; l < labels.length; l++) labels[l].style.lineHeight = `${container.getBoundingClientRect().height * 0.3}px`
-    for (var v = 0; v < values.length; v++) values[v].style.lineHeight = `${container.getBoundingClientRect().height * 0.7}px`
+    for (var l = 0; l < labels.length; l++) labels[l].style.lineHeight = (container.getBoundingClientRect().height * 0.3)+'px'
+    for (var v = 0; v < values.length; v++) values[v].style.lineHeight = (container.getBoundingClientRect().height * 0.7)+'px'
   }
 
   tkCountdown.interval = setInterval(function() {
@@ -355,8 +355,8 @@ tkCountdown.renderProgress = function() {
     tkCountdown.remainderLabel.innerText = display.label
   }
 
-  tkCountdown.remainder.style.width = `${newRatio}%`
-  tkCountdown.elapsed.style.width = `${100-newRatio}%`
+  tkCountdown.remainder.style.width = newRatio+'%'
+  tkCountdown.elapsed.style.width = (100-newRatio)+'%'
 
 }
 
@@ -462,7 +462,7 @@ tkCountdown.display = function(ms) {
     hours: hours,
     minutes: minutes,
     seconds: seconds,
-    label: `${weeks}w ${days}d ${hours}h ${minutes}m ${seconds}s`
+    label: weeks+'w '+days+'d '+hours+'h '+minutes+'m '+seconds+'s'
   }
 }
 

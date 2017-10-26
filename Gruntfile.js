@@ -55,8 +55,7 @@ module.exports = function(grunt) {
           },
           {
             expand: true,
-            cwd:'.',
-            src:'./countdown.js',
+            src:'countdown.js',
             dest: 'lib/'
           }
         ]
