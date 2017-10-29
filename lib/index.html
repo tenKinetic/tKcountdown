@@ -167,7 +167,7 @@
         <div class="label"></div>
       </div>
     </div>
-    <div class="tk-countdown airport">
+    <div class="tk-countdown flip">
       <div class="item weeks">
         <div class="label">weeks</div>
         <div class="digit">
@@ -263,9 +263,9 @@ tkCountdown.begin = function(opts) {
       tkCountdown.startRatio = opts.startRatio
 
     }
-    else if (opts.mode == 'airport') {
+    else if (opts.mode == 'flip') {
 
-      tkCountdown.element = document.querySelector('.tk-countdown.airport')
+      tkCountdown.element = document.querySelector('.tk-countdown.flip')
       tkCountdown.weeksDigit = document.querySelector('.tk-countdown .item.weeks .digit')
       tkCountdown.daysDigit = document.querySelector('.tk-countdown .item.days .digit')
       tkCountdown.hoursDigit = document.querySelector('.tk-countdown .item.hours .digit')
@@ -314,7 +314,7 @@ tkCountdown.begin = function(opts) {
     tkCountdown.remainderLabel.style.width = container.style.width
     tkCountdown.remainderLabel.style.lineHeight = container.style.height
     tkCountdown.remainderLabel.style.fontSize = (parseInt(container.style.height) * 0.6)+'px'
-  } else if (tkCountdown.mode == 'airport') {
+  } else if (tkCountdown.mode == 'flip') {
     var labels = tkCountdown.element.querySelectorAll('.item .label')
     var values = tkCountdown.element.querySelectorAll('.item .value')
     for (var l = 0; l < labels.length; l++) labels[l].style.lineHeight = (container.getBoundingClientRect().height * 0.3)+'px'
@@ -329,7 +329,7 @@ tkCountdown.begin = function(opts) {
 
 tkCountdown.render = function() {
   if (tkCountdown.mode == 'progress') tkCountdown.renderProgress()
-  else if (tkCountdown.mode == 'airport') tkCountdown.renderAirport()
+  else if (tkCountdown.mode == 'flip') tkCountdown.renderFlip()
 }
 
 tkCountdown.renderProgress = function() {
@@ -360,7 +360,7 @@ tkCountdown.renderProgress = function() {
 
 }
 
-tkCountdown.renderAirport = function() {
+tkCountdown.renderFlip = function() {
 
   var remainingTimeSpan = tkCountdown.eventTime - new Date().getTime()
   // we need to add a second so the final animation doesn't display 0s
@@ -466,13 +466,14 @@ tkCountdown.display = function(ms) {
   }
 }
 
-tkCountdown.begin({
-  // demo: 65000,
-  eventTime: new Date('2017-11-23T16:00:00').getTime(),
-  frequency: 125,
-  startRatio: 0.8,
-  mode: 'airport'
-})
+// RUN THIS FROM YOUR APPLICATION
+// tkCountdown.begin({
+//   // demo: 65000,
+//   eventTime: new Date('2017-11-23T16:00:00').getTime(),
+//   frequency: 125,
+//   startRatio: 0.8,
+//   mode: 'flip'
+// })
 </script>
 
   </div>
