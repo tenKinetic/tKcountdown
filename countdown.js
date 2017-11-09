@@ -71,17 +71,19 @@ tkCountdown.begin = function(opts) {
   var container = tkCountdown.element.parentElement
   if (tkCountdown.mode == 'progress') {
     // get the element that the countdown is contained in and use it for dimensions
+    var lineHeight = container.style.height
     tkCountdown.elapsedLabel.style.width = container.style.width
-    tkCountdown.elapsedLabel.style.lineHeight = container.style.height
+    tkCountdown.elapsedLabel.style.lineHeight = lineHeight
     tkCountdown.elapsedLabel.style.fontSize = (parseInt(container.style.height) * 0.6)+'px'
     tkCountdown.remainderLabel.style.width = container.style.width
-    tkCountdown.remainderLabel.style.lineHeight = container.style.height
+    tkCountdown.remainderLabel.style.lineHeight = lineHeight
     tkCountdown.remainderLabel.style.fontSize = (parseInt(container.style.height) * 0.6)+'px'
   } else if (tkCountdown.mode == 'flip') {
     var labels = tkCountdown.element.querySelectorAll('.item .label')
     var values = tkCountdown.element.querySelectorAll('.item .value')
-    for (var l = 0; l < labels.length; l++) labels[l].style.lineHeight = (container.getBoundingClientRect().height * 0.3)+'px'
-    for (var v = 0; v < values.length; v++) values[v].style.lineHeight = (container.getBoundingClientRect().height * 0.7)+'px'
+    var lineHeight = container.getBoundingClientRect().height
+    for (var l = 0; l < labels.length; l++) labels[l].style.lineHeight = (lineHeight * 0.3)+'px'
+    for (var v = 0; v < values.length; v++) values[v].style.lineHeight = (lineHeight * 0.7)+'px'
   }
 
   tkCountdown.interval = setInterval(function() {
